@@ -1,456 +1,88 @@
 import React from 'react';
 import NumericInput from 'react-numeric-input';
-import SpeedIcon from '../icons/utx_ico_obtain_00.png';
-import StaminaIcon from '../icons/utx_ico_obtain_01.png';
-import PowerIcon from '../icons/utx_ico_obtain_02.png';
-import GutsIcon from '../icons/utx_ico_obtain_03.png';
-import WisdomIcon from '../icons/utx_ico_obtain_04.png';
-import FriendIcon from '../icons/utx_ico_obtain_05.png';
+import VoiceIcon from '../icons/utx_ico_obtain_00.png';
+import DanceIcon from '../icons/utx_ico_obtain_01.png';
+import VisualIcon from '../icons/utx_ico_obtain_02.png';
 import { lsTest } from '../utils';
 
-function defaultGMState() {
+function defaultProState() {
     return {
         version: 26,
-        currentState: "speed",
+        currentState: "voice",
         show: false,
         general: {
-            bondPerDay: 15,
-            races: [10,2,0,5],
-            unbondedTrainingGain: [
-                [10,0,3,0,0,5,19],
-                [0,8,0,6,0,5,20],
-                [0,4,9,0,0,5,20],
-                [2,0,3,9,0,5,20],
-                [2,0,0,0,8,5,0]
-            ],
-            bondedTrainingGain: [
-                [13,0,4,0,0,5,23],
-                [0,9,0,6,0,5,21],
-                [0,4,10,0,0,5,21],
-                [3,0,3,12,0,5,24],
-                [3,0,0,0,11,5,0]
-            ],
-            summerTrainingGain: [
-                [14,0,5,0,0,5,24],
-                [0,12,0,8,0,5,25],
-                [0,6,13,0,0,5,25],
-                [4,0,4,13,0,5,25],
-                [4,0,0,0,12,5,0]
-            ],
-            umaBonus: [1.06,1.06,1.06,1.06,1.06,1],
-            multi: 1.25,
-            bonusSpec: 0,
-            motivation: 0.2,
-            scenarioLink: [
-                "ダーレーアラビアン"
-            ],
-            scenarioBonus: 150,
-            fanBonus: 0.1,
+            idolStats: [80, 80, 80],
+            idolMult: [15, 15, 15],
+            memStats: [20, 20, 20],
+            memMult: [5, 5, 5],
+            memPoints: 0,
+            statCap: 1800,
+            vocalLessons: [780, 3, 2, 0],
+            danceLessons: [775, 3, 2, 0], 
+            visualLessons: [325, 0, 0, 0],
+            spRate: 5,
+            rest: 2,
+            gift: 2,
+            date: 2,
+            shop: 2,
+            classroom: 4,
+            classroomStats: [110, 100, 80],
+            drink: 10,
+            upgrade: [5,5],
+            cardAcq: [5, 5, 5],
+            removal: 5,
         },
-        speed: {
+        voice: {
             type: 0,
-            stats: [1.1,1,2,1,1,2,1.5],
-            cap:600,
-            minimum: 20,
-            prioritize: true,
-            onlySummer: false,
         },
-        stamina: {
+        dance: {
             type: 1,
-            stats: [1,1,1,1.1,1,2,1.5],
-            cap:550,
-            minimum: 20,
-            prioritize: false,
-            onlySummer: false,
         },
-        power: {
+        visual: {
             type: 2,
-            stats: [1,1.1,1,1,1,2,1.5],
-            cap:550,
-            minimum: 20,
-            prioritize: false,
-            onlySummer: false,
         },
-        guts: {
-            type: 3,
-            stats: [2,1,2,1,1,2,1.5],
-            cap:550,
-            minimum: 20,
-            prioritize: true,
-            onlySummer: false,
-        },
-        wisdom: {
-            type: 4,
-            stats: [1.1,1,1,1,1.1,2,1],
-            cap:600,
-            minimum: 20,
-            prioritize: true,
-            onlySummer: false,
-        },
-        friend: {
-            type: 6,
-            stats: [1,1,1,1,1,2,0.75],
-            cap:500,
-            minimum: 20,
-        }
     }
 }
 
-function defaultGLState() {
+function defaultMasterState() {
     return {
         version: 18,
-        currentState: "speed",
+        currentState: "voice",
         show: false,
         general: {
-            bondPerDay: 20,
-            races: [7,2,0,3],
-            unbondedTrainingGain: [
-                [8,0,4,0,0,2,19],
-                [0,8,0,6,0,2,20],
-                [0,4,9,0,0,2,20],
-                [2,0,2,7,0,2,20],
-                [2,0,0,0,6,3,0]
-            ],
-            bondedTrainingGain: [
-                [11,0,5,0,0,2,23],
-                [0,9,0,6,0,2,21],
-                [0,4,10,0,0,2,21],
-                [3,0,2,10,0,2,24],
-                [3,0,0,0,9,3,0]
-            ],
-            summerTrainingGain: [
-                [12,0,6,0,0,2,24],
-                [0,12,0,8,0,2,25],
-                [0,6,13,0,0,2,25],
-                [3,0,3,11,0,2,25],
-                [4,0,0,0,10,3,0]
-            ],
-            umaBonus: [1.06,1.06,1.06,1.06,1.06,1],
-            multi: 1.4,
-            bonusSpec: 20,
-            motivation: 0.2,
-            scenarioLink: [
-                "ミホノブルボン",
-                "ライトハロー",
-                "スマートファルコン",
-                "アグネスタキオン",
-                "サイレンススズカ",
-            ],
-            scenarioBonus: 75,
-            fanBonus: 0.05,
+            idolStats: [60, 60, 60],
+            idolMult: [15, 15, 15],
+            memStats: [10, 10, 10],
+            memMult: [5, 5, 5],
+            memPoints: 0,
+            statCap: 1800,
+            vocalLessons: [635, 3, 2, 0],
+            danceLessons: [605, 2, 2, 0],
+            visualLessons: [460, 2, 0, 1],
+            spRate: 0.05,
+            rest: 3,
+            gift: 2,
+            date: 2,
+            shop: 2,
+            classroom: 3,
+            classroomStats: [110, 100, 80],
+            drink: 3,
+            upgrade: [3, 4],
+            cardAcq: [6, 9, 4],
+            removal: 2,
         },
-        speed: {
+        voice: {
             type: 0,
-            stats: [1.1,1,1.2,1,1,0.5,1.5],
-            cap:600,
-            minimum: 35,
-            prioritize: true,
-            onlySummer: false,
         },
-        stamina: {
+        dance: {
             type: 1,
-            stats: [1,1,1,1.1,1,0.5,1.5],
-            cap:550,
-            minimum: 35,
-            prioritize: false,
-            onlySummer: false,
         },
-        power: {
+        visual: {
             type: 2,
-            stats: [1,1.1,1,1,1,0.5,1.5],
-            cap:550,
-            minimum: 35,
-            prioritize: false,
-            onlySummer: false,
         },
-        guts: {
-            type: 3,
-            stats: [2,1,2,1,1,0.5,1.5],
-            cap:550,
-            minimum: 30,
-            prioritize: true,
-            onlySummer: false,
-        },
-        wisdom: {
-            type: 4,
-            stats: [1.1,1,1,1,1.1,0.5,1],
-            cap:600,
-            minimum: 30,
-            prioritize: true,
-            onlySummer: false,
-        },
-        friend: {
-            type: 6,
-            stats: [1,1,1,1,1,0.5,0.75],
-            cap:500,
-            minimum: 30,
-        }
     }
 }
 
-function defaultMANTState() {
-    return {
-        version: 18,
-        currentState: "speed",
-        show: false,
-        general: {
-            bondPerDay: 20,
-            races: [15,10,2,3],
-            unbondedTrainingGain: [
-                [8,0,4,0,0,2,19],
-                [0,7,0,3,0,2,17],
-                [0,4,6,0,0,2,18],
-                [3,0,3,6,0,2,20],
-                [2,0,0,0,6,3,0]
-            ],
-            bondedTrainingGain: [
-                [10,0,4,0,0,2,21],
-                [0,8,0,3,0,2,18],
-                [0,4,7,0,0,2,19],
-                [4,0,3,9,0,2,24],
-                [3,0,0,0,9,3,0]
-            ],
-            summerTrainingGain: [
-                [12,0,6,0,0,2,24],
-                [0,11,0,5,0,2,22],
-                [0,6,10,0,0,2,23],
-                [4,0,4,10,0,2,25],
-                [4,0,0,0,10,3,0]
-            ],
-            umaBonus: [1.06,1.06,1.06,1.06,1.06,1],
-            multi: 1.4,
-            bonusSpec: 0,
-            motivation: 0.2,
-            scenarioLink: [],
-            scenarioBonus: 0,
-            fanBonus: 0.15
-        },
-        speed: {
-            type: 0,
-            stats: [1,1,1.1,1,1,0.5,1],
-            cap:350,
-            minimum: 50,
-            prioritize: true,
-            onlySummer: false,
-        },
-        stamina: {
-            type: 1,
-            stats: [1,1,1,1.1,1,0.5,1],
-            cap:350,
-            minimum: 40,
-            prioritize: false,
-            onlySummer: false,
-        },
-        power: {
-            type: 2,
-            stats: [1,1.1,1,1,1,0.5,1],
-            cap:350,
-            minimum: 50,
-            prioritize: false,
-            onlySummer: false,
-        },
-        guts: {
-            type: 3,
-            stats: [2,1,2,1,1,0.5,1],
-            cap:350,
-            minimum: 50,
-            prioritize: true,
-            onlySummer: false,
-        },
-        wisdom: {
-            type: 4,
-            stats: [1.1,1,1,1,1,0.5,1],
-            cap:350,
-            minimum: 40,
-            prioritize: true,
-            onlySummer: false,
-        },
-        friend: {
-            type: 6,
-            stats: [1,1,1,1,1,0.5,0.5],
-            cap:350,
-            minimum: 40,
-        }
-    }
-}
-
-function defaultAoharuState() {
-    return {
-        version: 18,
-        currentState: "wisdom",
-        show: false,
-        general: {
-            bondPerDay: 20,
-            races: [7,2,0,3],
-            unbondedTrainingGain: [
-                [8,0,4,0,0,4,19],
-                [0,8,0,6,0,4,20],
-                [0,4,9,0,0,4,20],
-                [3,0,3,6,0,4,20],
-                [2,0,0,0,6,5,0]
-            ],
-            bondedTrainingGain: [
-                [12,0,5,0,0,4,24],
-                [0,12,0,7,0,4,25],
-                [0,5,13,0,0,4,25],
-                [4,0,3,10,0,4,25],
-                [3,0,0,0,10,5,0]
-            ],
-            summerTrainingGain: [
-                [13,0,6,0,0,4,25],
-                [0,13,0,8,0,4,26],
-                [0,6,14,0,0,4,26],
-                [4,0,4,11,0,4,26],
-                [4,0,0,0,11,5,0]
-            ],
-            umaBonus: [1.06,1.06,1.06,1.06,1.06,1],
-            multi: 1,
-            bonusSpec: 0,
-            motivation: 0.2,
-            scenarioLink: [
-                "マチカネフクキタル",
-                "ハルウララ",
-                "樫本理子",
-                "ライスシャワー",
-                "タイキシャトル"
-            ],
-            scenarioBonus: 40,
-            fanBonus: 0.05
-        },
-        speed: {
-            type: 0,
-            stats: [1,1.5,1.5,1,1,0.5,1],
-            cap:550,
-            minimum: 40,
-            prioritize: false,
-            onlySummer: false,
-        },
-        stamina: {
-            type: 1,
-            stats: [1,1.5,1.5,1.1,1,0.5,1],
-            cap:400,
-            minimum: 30,
-            prioritize: false,
-            onlySummer: false,
-        },
-        power: {
-            type: 2,
-            stats: [1,1.5,1.5,1,1,0.5,1],
-            cap:400,
-            minimum: 30,
-            prioritize: false,
-            onlySummer: false,
-        },
-        guts: {
-            type: 3,
-            stats: [2,1.5,2,1,1,0.5,1],
-            cap:500,
-            minimum: 40,
-            prioritize: false,
-            onlySummer: false,
-        },
-        wisdom: {
-            type: 4,
-            stats: [1.2,1,1,1,1.5,1,0.5],
-            cap:900,
-            minimum: 30,
-            prioritize: true,
-            onlySummer: false,
-        },
-        friend: {
-            type: 6,
-            stats: [1,1.5,1.5,1,1,0.5,0.5],
-            cap:500,
-            minimum: 40,
-        }
-    }
-}
-
-function defaultURAState() {
-    return {
-        version: 18,
-        currentState: "speed",
-        show: false,
-        general: {
-            bondPerDay: 20,
-            races: [7,2,0,3],
-            unbondedTrainingGain: [
-                [11,0,6,0,0,4,21],
-                [0,10,0,6,0,4,19],
-                [0,6,9,0,0,4,20],
-                [5,0,5,8,0,4,22],
-                [2,0,0,0,10,5,0]
-            ],
-            bondedTrainingGain: [
-                [13,0,6,0,0,4,23],
-                [0,11,0,6,0,4,21],
-                [0,6,11,0,0,4,22],
-                [5,0,5,10,0,4,24],
-                [2,0,0,0,12,5,0]
-            ],
-            summerTrainingGain: [
-                [15,0,8,0,0,4,24],
-                [0,14,0,7,0,4,25],
-                [0,8,13,0,0,4,25],
-                [6,0,6,12,0,4,25],
-                [4,0,0,0,14,5,0]
-            ],
-            umaBonus: [1.06,1.06,1.06,1.06,1.06,1],
-            multi: 1,
-            bonusSpec: 0,
-            motivation: 0.2,
-            scenarioLink: ["桐生院葵"],
-            scenarioBonus: 16,
-            fanBonus: 0.05
-        },
-        speed: {
-            type: 0,
-            stats: [1,1.5,1.5,1,1,0.5,1],
-            cap:500,
-            minimum: 40,
-            prioritize: true,
-            onlySummer: false,
-        },
-        stamina: {
-            type: 1,
-            stats: [1,1.5,1.5,1.1,1,0.5,1],
-            cap:400,
-            minimum: 30,
-            prioritize: false,
-            onlySummer: false,
-        },
-        power: {
-            type: 2,
-            stats: [1,1.5,1.5,1,1,0.5,1],
-            cap:400,
-            minimum: 30,
-            prioritize: false,
-            onlySummer: false,
-        },
-        guts: {
-            type: 3,
-            stats: [2,1.5,2,1,1,0.5,1],
-            cap:500,
-            minimum: 40,
-            prioritize: true,
-            onlySummer: false,
-        },
-        wisdom: {
-            type: 4,
-            stats: [1.1,1.5,1.5,1,1,0.5,1],
-            cap:500,
-            minimum: 30,
-            prioritize: true,
-            onlySummer: false,
-        },
-        friend: {
-            type: 6,
-            stats: [1,1.5,1.5,1,1,0.5,0.5],
-            cap:500,
-            minimum: 40,
-        }
-    }
-}
 
 class Weights extends React.Component {
     constructor(props) {
@@ -462,25 +94,12 @@ class Weights extends React.Component {
         this.onCapChanged = this.onCapChanged.bind(this);
         this.onMinimumChanged = this.onMinimumChanged.bind(this);
         this.onToggleWeights = this.onToggleWeights.bind(this);
+        this.handleStatCapChange = this.handleStatCapChange.bind(this);
         this.onMotivationChanged = this.onMotivationChanged.bind(this);
-        this.onMANTReset = this.onMANTReset.bind(this);
-        this.onURAReset = this.onURAReset.bind(this);
-        this.onAoharuReset = this.onAoharuReset.bind(this);
-        this.onGLReset = this.onGLReset.bind(this);
-        this.onGMReset = this.onGMReset.bind(this);
+        this.onProReset = this.onProReset.bind(this);
+        this.onMasterReset = this.onMasterReset.bind(this);
 
-        if(lsTest()) {
-            let savedWeights = window.localStorage.getItem("weights");
-            if (savedWeights !== null) {
-                savedWeights = JSON.parse(savedWeights);
-                if (savedWeights.version == defaultMANTState().version) {
-                    this.state = savedWeights;
-                    return this.props.onChange(this.state[this.state.currentState], this.state.general);
-                }
-            }
-        }
-
-        this.state = defaultGMState();
+        this.state = defaultProState();
         this.props.onChange(this.state[this.state.currentState], this.state.general);
     }
 
@@ -490,32 +109,14 @@ class Weights extends React.Component {
         }
     }
 
-    onGLReset() {
-        let newState = defaultGLState();
+    onProReset() {
+        let newState = defaultProState();
         this.setState(newState);
         this.props.onChange(newState[newState.currentState], newState.general);
     }
 
-    onMANTReset() {
-        let newState = defaultMANTState();
-        this.setState(newState);
-        this.props.onChange(newState[newState.currentState], newState.general);
-    }
-
-    onURAReset() {
-        let newState = defaultURAState();
-        this.setState(newState);
-        this.props.onChange(newState[newState.currentState], newState.general);
-    }
-
-    onAoharuReset() {
-        let newState = defaultAoharuState();
-        this.setState(newState);
-        this.props.onChange(newState[newState.currentState], newState.general);
-    }
-
-    onGMReset() {
-        let newState = defaultGMState();
+    onMasterReset() {
+        let newState = defaultMasterState();
         this.setState(newState);
         this.props.onChange(newState[newState.currentState], newState.general);
     }
@@ -545,7 +146,8 @@ class Weights extends React.Component {
     }
 
     onGeneralSettingChanged(event, numberString, numberInput) {
-        if (!event) return;
+        if (event === 0) { }
+        else if (!event) return;
 
         let settings = this.state.general;
 
@@ -584,7 +186,7 @@ class Weights extends React.Component {
 
         this.props.onChange(this.state[event.target.id], this.state.general);
     }
-
+    
     onCapChanged(event) {
         let settings = this.state[this.state.currentState];
         settings.cap = event.target.value;
@@ -607,151 +209,239 @@ class Weights extends React.Component {
         this.setState({show: !this.state.show});
     }
 
+    handleStatCapChange(value) {
+        this.setState((prevState) => ({
+            general: {
+                ...prevState.general,
+                statCap: value,
+            },
+        }));
+    }
+    
     render() {
         return (
             <div className="weights">
                 <div className="weight-row">
-                    <input id="speed" type="image" class={this.state.currentState == "speed" ? "image-btn selected" : "image-btn"} src={SpeedIcon} onClick={this.onTypeChanged} alt="Speed"/>
-                    <input id="stamina" type="image" class={this.state.currentState == "stamina" ? "image-btn selected" : "image-btn"} src={StaminaIcon} onClick={this.onTypeChanged} alt="Stamina"/>
-                    <input id="power" type="image" class={this.state.currentState == "power" ? "image-btn selected" : "image-btn"} src={PowerIcon} onClick={this.onTypeChanged} alt="Power"/>
-                    <input id="guts" type="image" class={this.state.currentState == "guts" ? "image-btn selected" : "image-btn"} src={GutsIcon} onClick={this.onTypeChanged} alt="Guts"/>
-                    <input id="wisdom" type="image" class={this.state.currentState == "wisdom" ? "image-btn selected" : "image-btn"} src={WisdomIcon} onClick={this.onTypeChanged} alt="Wisdom"/>
-                    <input id="friend" type="image" class={this.state.currentState == "friend" ? "image-btn selected" : "image-btn"} src={FriendIcon} onClick={this.onTypeChanged} alt="Friend"/>
+                    <input id="voice" type="image" className={this.state.currentState == "voice" ? "image-btn selected" : "image-btn"} src={VoiceIcon} onClick={this.onTypeChanged} alt="Voice" />
+                    <input id="dance" type="image" className={this.state.currentState == "dance" ? "image-btn selected" : "image-btn"} src={DanceIcon} onClick={this.onTypeChanged} alt="Dance" />
+                    <input id="visual" type="image" className={this.state.currentState == "visual" ? "image-btn selected" : "image-btn"} src={VisualIcon} onClick={this.onTypeChanged} alt="Visual" />
                 </div>
                 <div className="weight-row">
-                    <button id="weights-toggle" type="button" onClick={this.onToggleWeights}>{this.state.show ? "Hide Settings" : "Customize Settings"}</button>
+                    <button id="weights-toggle" type="button" onClick={this.onToggleWeights}>{this.state.show ? "Customize Settings" : "Hide Settings"}</button>
                 </div>
                 {
-                    this.state.show &&
+                    !this.state.show &&
                     <>
-                    <div className="weight-row">
-                        <div class="section-header">Scenario</div>
-                        <div class="section-explanation">
-                            Which scenario you're playing in.<br/>
-                            Changes the stat gains from trainings and some default values.
+                        <div className="radio-container">
+                            <div className="section-header">
+                                Stat Cap
+                            </div>
+                            <div className="radio-label">
+                                <label> 
+                                    1500 (Pro)
+                                    <input
+                                        type="radio"
+                                        value="1500"
+                                        checked={this.state.general.statCap === 1500}
+                                        onChange={() => this.handleStatCapChange(1500)}
+                                    />
+                                </label>
+                                <label> 
+                                    1800 (Master)
+                                    <input
+                                        type="radio"
+                                        value="1800"
+                                        checked={this.state.general.statCap === 1800}
+                                        onChange={() => this.handleStatCapChange(1800)}
+                                    />
+                                </label>
+                            </div>
                         </div>
-                        <button id="reset-weights-GL" type="button" onClick={this.onGMReset}>GM</button>
-                        <button id="reset-weights-GL" type="button" onClick={this.onGLReset}>GL</button>
-                        <button id="reset-weights-MANT" type="button" onClick={this.onMANTReset}>MANT</button>
-                        <button id="reset-weights-URA" type="button" onClick={this.onAoharuReset}>Aoharu</button>
-                        <button id="reset-weights-URA" type="button" onClick={this.onURAReset}>URA</button>
-                    </div>
-                    <div className="weight-row">
-                        <div class="section-header">Bond Rate</div>
-                        <div class="section-explanation">
-                            The fewer bond per turn, the more Starting Bond matters.<br/>
-                            This is the bond over every card, so 14 = two cards per day, etc.
+
+                        <div className="starting-stats-container">
+                            <div className="starting-stats left">
+                                <div className="section-header">Idol Stats</div>
+                                <div className="section-subheader">
+                                    Starting stats
+                                </div>
+
+                                <label for="idolstats.0">Voice</label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="idolStats.0" value={this.state.general.idolStats[0]} min={0} max={1000} step={5} />
+                                <label for="idolstats.1">Dance</label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="idolStats.1" value={this.state.general.idolStats[1]} min={0} max={1000} step={5} />
+                                <label for="idolstats.2">Visual</label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="idolStats.2" value={this.state.general.idolStats[2]} min={0} max={1000} step={5} />
+
+                                <div className="section-subheader">
+                                    Multiplier
+                                </div>
+
+                                <label for="idolMult.0">Voice</label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="idolMult.0" value={this.state.general.idolMult[0]} min={0} max={100} step={1} />%
+                                <label for="idolMult.1">Dance</label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="idolMult.1" value={this.state.general.idolMult[1]} min={0} max={100} step={1} />%
+                                <label for="idolMult.2">Visual</label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="idolMult.2" value={this.state.general.idolMult[2]} min={0} max={100} step={1} />%
+
+                                
+                            </div>
+
+
+                            <div className="starting-stats right">
+                                <div className="section-header">Memory Stats</div>
+                                <div className="section-subheader">
+                                    Flat Stats
+                                </div>
+
+                                <label for="memStats.0">Voice</label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="memStats.0" value={this.state.general.memStats[0]} min={0} max={200} step={5} />
+                                <label for="memStats.1">Dance</label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="memStats.1" value={this.state.general.memStats[1]} min={0} max={200} step={5} />
+                                <label for="memStats.2">Visual</label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="memStats.2" value={this.state.general.memStats[2]} min={0} max={200} step={5} />
+                                <br />
+                                <div className="section-subheader">
+                                    Multiplier
+                                </div>
+                                <label for="memMult.0">Voice</label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="memMult.0" value={this.state.general.memMult[0]} min={0} max={100} step={1} />%
+                                <label for="memMult.1">Dance</label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="memMult.1" value={this.state.general.memMult[1]} min={0} max={100} step={1} />%
+                                <label for="memMult.2">Visual</label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="memMult.2" value={this.state.general.memMult[2]} min={0} max={100} step={1} />%
+
+                                <div className="section-subheader">
+                                    P Points
+                                </div>
+
+                                <label for="memPoints"></label>
+                                <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="memPoints" value={this.state.general.memPoints} min={0} max={200} step={10} />
+                            </div>
                         </div>
-                        <label for="bondPerDay">Bond Gained per Turn:</label>
-                        <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="bondPerDay" value={this.state.general.bondPerDay} min={1} max={50} step={0.1}/>
-                    </div>
-                    <div className="weight-row">
-                        <div class="section-header">Optional Races</div>
-                        <div class="section-explanation">
-                            How many of each optional race class you do, for calculating Race Bonus points.
-                        </div>
-                        <label for="races.0">G1</label>
-                        <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="races.0" value={this.state.general.races[0]} min={0} max={30} step={1}/>
-                        <label for="races.1">G2/G3</label>
-                        <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="races.1" value={this.state.general.races[1]} min={0} max={30} step={1}/>
-                        <label for="races.2">OP/Pre-OP</label>
-                        <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="races.2" value={this.state.general.races[2]} min={0} max={30} step={1}/>
-                    </div>
-                    <div className="weight-row">
-                        <div class="section-header">Scenario Specific</div>
-                        <div class="section-explanation">
-                            Multiplier accounts for MANT items and GL friendship songs.<br/>
-                            Bonus Specialty is for Grand Live song bonuses.
-                        </div>
-                        <label for="multi">Multiplier:</label>
-                        <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="multi" value={this.state.general.multi} min={1} max={2.2} step={0.05}/>
-                        <label for="bonusSpec">Bonus Specialty:</label>
-                        <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="bonusSpec" value={this.state.general.bonusSpec} min={-1} max={95} step={5}/>
-                    </div>
-                    <div className="weight-row">
-                        <div class="section-header">Stat Weights</div>
-                        <div class="section-explanation">
-                            How much score each point of the given stat/resource gives.
-                        </div>
-                        <label for="stats.0">Speed</label>
-                        <NumericInput onChange={this.onSettingChanged} type="number" id="stats.0" value={this.state[this.state.currentState].stats[0]} min={0} max={3} step={0.1}/>
-                        <label for="stats.1">Stamina</label>
-                        <NumericInput onChange={this.onSettingChanged} type="number" id="stats.1" value={this.state[this.state.currentState].stats[1]} min={0} max={3} step={0.1}/>
-                        <label for="stats.2">Power</label>
-                        <NumericInput onChange={this.onSettingChanged} type="number" id="stats.2" value={this.state[this.state.currentState].stats[2]} min={0} max={3} step={0.1}/>
-                        <label for="stats.3">Guts</label>
-                        <NumericInput onChange={this.onSettingChanged} type="number" id="stats.3" value={this.state[this.state.currentState].stats[3]} min={0} max={3} step={0.1}/>
-                        <label for="stats.4">Wisdom</label>
-                        <NumericInput onChange={this.onSettingChanged} type="number" id="stats.4" value={this.state[this.state.currentState].stats[4]} min={0} max={3} step={0.1}/>
-                        <br/><br/><label for="stats.5">Skill Points</label>
-                        <NumericInput onChange={this.onSettingChanged} type="number" id="stats.5" value={this.state[this.state.currentState].stats[5]} min={0} max={3} step={0.1}/>
-                        <label for="stats.6">Energy</label>
-                        <NumericInput onChange={this.onSettingChanged} type="number" id="stats.6" value={this.state[this.state.currentState].stats[6]} min={0} max={3} step={0.1}/>
-                    </div>
-                    <div className="weight-row">
-                        <div class="section-header">Average Motivation</div>
-                        <div class="section-explanation">
-                            You get 10% per motivation stage. This affects Motivation Bonus.
-                        </div>
-                        <input type="range" onChange={this.onMotivationChanged} min={-0.2} max={0.2} step={0.05} value={this.state.general.motivation} class="slider" id="motivation"/>
-                        <label for="minimum">{this.state.general.motivation * 100}%</label>
-                    </div>
-                    <div className="weight-row">
-                        <div class="section-header">Stat Cap</div>
-                        <div class="section-explanation">
-                            This will cap the stat gain, penalizing cards that only raise one stat.<br/>
-                            Lower this if you tend to cap your stats very early to strengthen cards that raise multiple.
-                        </div>
-                        <input type="range" onChange={this.onCapChanged} min={300} max={1000} step={20} value={this.state[this.state.currentState].cap} class="slider" id="cap"/>
-                        <label for="cap">{this.state[this.state.currentState].cap}</label>
-                    </div>
-                    <div className="weight-row">
-                        <div class="section-header">Minimum Training Value</div>
-                        <div class="section-explanation">
-                            Any training combination that gives less than this will be ignored.<br/>
-                            Increase this to ignore trainings you wouldn't do, such as lone rainbows.<br/>
-                            Solo MLB Kitasan rainbow is about 40, depending on the weights, for reference.
-                        </div>
-                        <input type="range" onChange={this.onMinimumChanged} min={20} max={100} step={5} value={this.state[this.state.currentState].minimum} class="slider" id="minimum"/>
-                        <label for="minimum">{this.state[this.state.currentState].minimum}</label>
-                    </div>
-                    {this.state.currentState !== "friend" &&
+                        <br />
                         <div className="weight-row">
-                            <div class="section-header">Rainbow Rate Alterations</div>
-                            <div class="section-explanation">
-                                If this option is disabled, then single rainbows in this stat<br/>
-                                will be ignored if any other stat is rainbowing at the same time.
+                            <div className="section-header">SP Lesson Base Rate</div>
+                            <div className="section-explanation">
+                                Your idol's base rate for SP Lessons <br />
+                                (i.e. <b>0%</b> at Training Lvl 0-1, <b>5%</b> at Training Lvl 2-5, and <b>10%</b> at Training Lvl 6)
                             </div>
-                            <input type="checkbox" onChange={this.onSettingChanged} checked={this.state[this.state.currentState].prioritize} id="prioritize"/>
-                            <label for="prioritize">Prioritize This Stat</label>
-                            <div class="section-explanation">
-                                If this option is enabled, then all rainbows will be ignored<br/>
-                                in this stat unless it's summer. Assumes 8 summer turns. Sorry Bakushin.
-                            </div>
-                            <input type="checkbox" onChange={this.onSettingChanged} checked={this.state[this.state.currentState].onlySummer} id="onlySummer"/>
-                            <label for="onlySummer">Only Train In Summer</label>
+                            <label for="spRate">SP Rate</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="spRate" value={this.state.general.spRate} min={0} max={10} step={5} />%
                         </div>
-                    }
+                        <br />
+                        <div className="weight-row">
+                            <div className="section-header">Routing</div>
+                            <div className="section-explanation">
+                                Note: There should only be 6 days of Gift/Date/Consult and 4 days of Classroom in Master Mode
+                            </div>
+
+                            <label for="gift">Gift</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="gift" value={this.state.general.gift} min={0} max={14} step={1} />
+                            <label for="date">Date</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="date" value={this.state.general.date} min={0} max={14} step={1} />
+                            <label for="shop">Consult</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="shop" value={this.state.general.shop} min={0} max={14} step={1} />
+                            <label for="classroom">Classroom</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="classroom" value={this.state.general.classroom} min={0} max={14} step={1} />
+                            <label for="rest">Rest</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="rest" value={this.state.general.rest} min={0} max={14} step={1} />
+                        </div>
+                        <br />
+                        <div className="weight-row">
+                            <div className="section-header">Classroom Stats</div>
+                            <div className="section-explanation">
+                                Stats gained from Classrooms
+                            </div>
+                            <label for="classroomStats.0">Voice</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="classroomStats.0" value={this.state.general.classroomStats[0]} min={0} max={1000} step={1} />
+                            <label for="classroomStats.1">Dance</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="classroomStats.1" value={this.state.general.classroomStats[1]} min={0} max={1000} step={1} />
+                            <label for="classroomStats.2">Visual</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="classroomStats.2" value={this.state.general.classroomStats[2]} min={0} max={1000} step={1} />
+                        </div>
+                        <br />
+                        <div className="weight-row">
+                            <div className="section-header">Lesson Parameters</div>
+                            <div className="section-explanation">
+                                Note: 'Lessons' is the sum of SP, Normal, and Oikomi lessons<br />
+                                The 4 Master Mode Lessons have a base stat  gain of <b>90, 170, 200,</b> then <b>220.</b> 
+                            </div>
+                            <div className="section-subheader">
+                                Vocal Lessons
+                            </div>
+                            <label for="vocalLessons.0">Stats</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="vocalLessons.0" value={this.state.general.vocalLessons[0]} min={0} max={1800} step={1} />
+                            <label for="vocalLessons.1">Lessons</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="vocalLessons.1" value={this.state.general.vocalLessons[1]} min={0} max={20} step={1} />
+                            <label for="vocalLessons.2">SP Lessons</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="vocalLessons.2" value={this.state.general.vocalLessons[2]} min={0} max={20} step={1} />
+                            <label for="vocalLessons.3">Normal Lessons</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="vocalLessons.3" value={this.state.general.vocalLessons[3]} min={0} max={20} step={1} />
+    
+                            <div className="section-subheader">
+                                Dance Lessons
+                            </div>
+                            <label for="danceLessons.0">Stats</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="danceLessons.0" value={this.state.general.danceLessons[0]} min={0} max={1800} step={1} />
+                            <label for="danceLessons.1">Lessons</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="danceLessons.1" value={this.state.general.danceLessons[1]} min={0} max={20} step={1} />
+                            <label for="danceLessons.2">SP Lessons</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="danceLessons.2" value={this.state.general.danceLessons[2]} min={0} max={20} step={1} />
+                            <label for="danceLessons.3">Normal Lessons</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="danceLessons.3" value={this.state.general.danceLessons[3]} min={0} max={20} step={1} />
+
+                            <div className="section-subheader">
+                                Visual Lessons
+                            </div>
+                            <label for="visualLessons.0">Stats</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="visualLessons.0" value={this.state.general.visualLessons[0]} min={0} max={1800} step={1} />
+                            <label for="visualLessons.1">Lessons</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="visualLessons.1" value={this.state.general.visualLessons[1]} min={0} max={20} step={1} />
+                            <label for="visualLessons.2">SP Lessons</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="visualLessons.2" value={this.state.general.visualLessons[2]} min={0} max={20} step={1} />
+                            <label for="visualLessons.3">Normal Lessons</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="visualLessons.3" value={this.state.general.visualLessons[3]} min={0} max={20} step={1} />
+                        </div>
+                        <br />
+                        <div className="weight-row">
+                            <div className="section-header">Run Variables</div>
+                            <div className="section-explanation">
+                                Values that depend on the run<br />
+                                (Support card events and Produce Items currently not supported, use Starting or Classroom Stats if needed)
+                            </div>
+                            <div className="section-subheader">
+                                Card Acquisition
+                            </div>
+                            <label for="cardAcq.0">Active</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="cardAcq.0" value={this.state.general.cardAcq[0]} min={0} max={50} step={1} />
+                            <label for="cardAcq.1">Mental</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="cardAcq.1" value={this.state.general.cardAcq[1]} min={0} max={50} step={1} />
+                            <label for="cardAcq.2">Condition</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="cardAcq.2" value={this.state.general.cardAcq[2]} min={0} max={50} step={1} />
+
+                            <div className="section-subheader">
+                                Card Upgrades
+                            </div>
+                            <label for="upgrade.0">Active</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="upgrade.0" value={this.state.general.upgrade[0]} min={0} max={50} step={1} />
+                            <label for="upgrade.1">Mental</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="upgrade.1" value={this.state.general.upgrade[1]} min={0} max={50} step={1} />
+
+                            <div className="section-subheader">
+                                Other
+                            </div>
+                            <label for="removal">Card Removal</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="removal" value={this.state.general.removal} min={0} max={50} step={1} />
+                            <label for="drink">P Drinks</label>
+                            <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="drink" value={this.state.general.drink} min={0} max={50} step={1} />
+                        </div>    
+                        <br />
+
+
                     </>
                 }
-                <div className="weight-row">
-                    <div class="section-header">Uma's Bonuses</div>
-                    <div class="section-explanation">
-                        The percentages on the uma's stat screen, converted to decimal. <br/>
-                        For example, 10% is 1.1, and 15% is 1.15.
-                    </div>
-                    <label for="umaBonus.0">Speed</label>
-                    <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="umaBonus.0" value={this.state.general.umaBonus[0]} min={0.7} max={1.3} step={0.01} precision={2}/>
-                    <label for="umaBonus.1">Stamina</label>
-                    <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="umaBonus.1" value={this.state.general.umaBonus[1]} min={0.7} max={1.3} step={0.01} precision={2}/>
-                    <label for="umaBonus.2">Power</label>
-                    <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="umaBonus.2" value={this.state.general.umaBonus[2]} min={0.7} max={1.3} step={0.01} precision={2}/>
-                    <label for="umaBonus.3">Guts</label>
-                    <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="umaBonus.3" value={this.state.general.umaBonus[3]} min={0.7} max={1.3} step={0.01} precision={2}/>
-                    <label for="umaBonus.4">Wisdom</label>
-                    <NumericInput onChange={this.onGeneralSettingChanged} type="number" id="umaBonus.4" value={this.state.general.umaBonus[4]} min={0.7} max={1.3} step={0.01} precision={2}/>
-                </div>
             </div>
+
         );
     }
 }

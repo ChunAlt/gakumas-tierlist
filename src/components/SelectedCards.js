@@ -1,39 +1,35 @@
 import React from 'react';
-import SpeedIcon from '../icons/utx_ico_obtain_00.png';
-import StaminaIcon from '../icons/utx_ico_obtain_01.png';
-import PowerIcon from '../icons/utx_ico_obtain_02.png';
-import GutsIcon from '../icons/utx_ico_obtain_03.png';
-import WisdomIcon from '../icons/utx_ico_obtain_04.png';
-import FriendIcon from '../icons/utx_ico_obtain_05.png';
-import events from '../card-events';
+import VoiceIcon from '../icons/utx_ico_obtain_00.png';
+import DanceIcon from '../icons/utx_ico_obtain_01.png';
+import VisualIcon from '../icons/utx_ico_obtain_02.png';
+
+//import events from '../card-events';
+/*
 const raceRewards = [
     10,
     8,
     5
 ]
+*/
 
 const type_to_icon = [
-    SpeedIcon,
-    StaminaIcon,
-    PowerIcon,
-    GutsIcon,
-    WisdomIcon,
-    "",
-    FriendIcon,
+    VoiceIcon,
+    DanceIcon,
+    VisualIcon,
 ]
 
 function SelectedCards(props) {
     let cards = [];
-    let raceBonus = 0;
-    let statsNoTraining = [120,120,120,120,120];
-    
+    let spRate = [props.weights.spRate, props.weights.spRate, props.weights.spRate];
+    let pPoints = props.weights.memPoints;
     for (let i = 0; i < props.selectedCards.length; i++) {
         let lit_up = "";
         let dark = "";
         let card = props.selectedCards[i];
-        raceBonus += card.race_bonus;
+        spRate[card.type] += card.sp_r;
+        pPoints += card.spp;
 
-        for(let j = 0; j < 4; j++) {
+        for (let j = 0; j < 4; j++) {
             if (j < card.limit_break) {
                 lit_up += "◆";
             } else {
@@ -41,15 +37,83 @@ function SelectedCards(props) {
             }
         }
 
-        for (let stat = 0; stat < 5; stat++) {
-            if (events[card.id]) {
-                statsNoTraining[stat] += events[card.id][stat] * card.effect_size_up;
-            }
-            statsNoTraining[stat] += card.starting_stats[stat];
+        let score = 0;
+        let statGains = card.start_b;
+
+        if (card.type === 0) {
+            statGains += card.pb * props.weights.vocalLessons[0];
+        } else if (card.type === 1) {
+            statGains += card.pb * props.weights.danceLessons[0];
+        } else {
+            statGains += card.pb * props.weights.visualLessons[0];
         }
 
+        if (card.type === 0) {
+            statGains += card.lb * props.weights.vocalLessons[1];
+        } else if (card.type === 1) {
+            statGains += card.lb * props.weights.danceLessons[1];
+        } else {
+            statGains += card.lb * props.weights.visualLessons[1];
+        }
+
+        if (card.type === 0) {
+            statGains += card.sp_lb * props.weights.vocalLessons[2];
+        } else if (card.type === 1) {
+            statGains += card.sp_lb * props.weights.danceLessons[2];
+        } else {
+            statGains += card.sp_lb * props.weights.visualLessons[2];
+        }
+
+        if (card.type === 0) {
+            statGains += card.n_lb * props.weights.vocalLessons[3];
+        } else if (card.type === 1) {
+            statGains += card.n_lb * props.weights.danceLessons[3];
+        } else {
+            statGains += card.n_lb * props.weights.visualLessons[3];
+        }
+
+        statGains += card.rest_b * props.weights.rest;
+        statGains += card.gb * props.weights.gift;
+        statGains += card.db * props.weights.date;
+        statGains += card.sb * props.weights.shop;
+        statGains += card.cb * props.weights.classroom;
+        statGains += card.pdb * props.weights.drink;
+        statGains += card.mb;
+
+        statGains += card.ub * props.weights.upgrade.reduce((total, current) => total + current, 0);
+        statGains += card.m_ub * props.weights.upgrade[1];
+
+        statGains += card.a_cb * props.weights.cardAcq[0];
+        statGains += card.m_cb * props.weights.cardAcq[1];
+        statGains += card.con_cb * props.weights.cardAcq[2];
+
+        statGains += card.remove_b * props.weights.removal;
+
+        // Convert stat gains to score
+        score += Math.round(statGains);
+
+        let sigImg1 = "";
+        let sigImg2 = "";
+        sigImg1 = "/signatureImages/signature_10000.png"
+        sigImg2 = "/signatureImages/signature_10000.png"
+
+        /*
+        if (card.sig === 0) {
+            sigImg1 = "/signatureImages/signature_10000.png"
+            sigImg2 = "/signatureImages/signature_10000.png"
+        }
+            
+        } else if (card.sig === 1) {
+            sigImg1 = "/signatureImages/signature_" + card.rarity + "0000.png"
+            sigImg2 = "/signatureImages/signature_" + card.id
+        } else {
+            sigImg1 = "/signatureImages/signature_" + card.id
+            sigImg2 = "/signatureImages/signature_" + card.rarity + "1000.png"
+        }
+        */    
+
         cards.push(
-            <div className="support-card">
+            <div key={card.id} className="support-card">
                 <img
                     className="support-card-image"
                     name={card.id}
@@ -70,27 +134,32 @@ function SelectedCards(props) {
                     <span className="lb-yes">{lit_up}</span>
                     <span className="lb-no">{dark}</span>
                 </span>
+                <img
+                    className="signature-icon"
+                    name={card.id}
+                    src={process.env.PUBLIC_URL + sigImg1}
+                    title={card.id}
+                    alt={card.id}
+                />
+                <img
+                    className="signature-icon"
+                    name={card.id}
+                    src={process.env.PUBLIC_URL + sigImg2}
+                    title={card.id}
+                    alt={card.id}
+                />
+                <span className="score">
+                    {score}
+                </span>
             </div>
         );
+
     }
 
-    let raceMultiplier = 1 + (raceBonus / 100);
-    for (let i = 0; i < 3; i++) {
-        let raceGain = Math.floor(raceRewards[i] * raceMultiplier);
-        raceGain = raceGain * props.weights.races[i];
-        for (let stat = 0; stat < 5; stat++) {
-            statsNoTraining[stat] += raceGain / 5;
-        }
-    }
-
-    for (let stat = 0; stat < 5; stat++) {
-        statsNoTraining[stat] += Math.floor(13.5 * raceMultiplier) * 3;
-        statsNoTraining[stat] = Math.round(statsNoTraining[stat]);
-    }
-
-    console.log("Stat gains without training: ");
-    console.log(statsNoTraining);
-
+    let noSP = [(100 - spRate[0]) / 100, (100 - spRate[1]) / 100, (100 - spRate[2]) / 100];
+    let spRate4 = Math.pow((1 - (noSP[0] * noSP[1] * noSP[2])), 4);
+    let spRateTotal = Math.round(spRate4 * 10000) / 100;
+    
     return (
         <div className="selected-cards">
             <div className="section-header">Support Deck</div>
@@ -99,39 +168,25 @@ function SelectedCards(props) {
                 The score will consider the stats gained when training with these cards.
             </div>
             {cards}
+            <br />
+            <br />
+            <br />
+            <br />
             <div>
-                Total Race Bonus: <b>{raceBonus}</b> <i>(aim for 35 for URA/Aoharu, 50 for MANT)</i>
+                SP Lesson Rate: <b>{spRate[0]}%</b>/<b>{spRate[1]}%</b>/<b>{spRate[2]}%</b> - Probably of at least 1 SP Lesson each week (Master): <b>{spRateTotal}</b>% <br />
+                Starting P Points: <b>{pPoints}</b>
             </div>
-            <div class="link">
-                <a href={getEventHelperURL(props.selectedCards)} target="_blank">Open in Gametora Event Helper</a>
-            </div>
+            {/*
             <div>
-                Presets:
-                <button className="btn-preset" onClick={()=>props.onLoadPreset([20023,20033,20009,20003,30137])}>Speed/Power</button>
-                <button className="btn-preset" onClick={()=>props.onLoadPreset([20023,20033,20008,30022,30137])}>Speed/Stamina</button>
-                <button className="btn-preset" onClick={()=>props.onLoadPreset([20023,20033,20012,20002,30137])}>Speed/Int</button>
-                <button className="btn-preset" onClick={()=>props.onLoadPreset([30028,20048,20041,20012,20002])}>Guts/Int</button>
+                Examples:
+                <button className="btn-preset" onClick={() => props.onLoadPreset([10001, 10002, 10003, 10004, 10005])}>Dance/Voice (4 Gift, 2 Shop)</button>
+                <button className="btn-preset" onClick={() => props.onLoadPreset([10001, 10002, 10003, 10004, 10005])}>Dance/Visual (1 Gift, 1 Shop, 4 Rest)</button>
+                <button className="btn-preset" onClick={() => props.onLoadPreset([10001, 10002, 10003, 10004, 10005])}>Dance/Visual (1 Gift, 3 Shop)</button>
+
             </div>
-            <div>
-                <button className="btn-preset" onClick={()=>props.onLoadPreset([20012,20016,20025,20002,10060])}>Aoharu Parent</button>
-                <button className="btn-preset" onClick={()=>props.onLoadPreset([30028,20008,20009,30019,20012])}>Highlander</button>
-                <button className="btn-preset" onClick={()=>props.onLoadPreset([20031,30074,20027,20012,30054])}>Race Bonus</button>
-            </div>
+            */}
         </div>
     );
-}
-
-function getEventHelperURL(selectedCards) {
-    let url = "https://gametora.com/umamusume/training-event-helper?deck=mp4y-";
-
-    let ids = selectedCards.map(c => c.id);
-    while (ids.length < 6) ids.push(10000)
-
-    url += parseInt(`${ids[0]}${ids[1]}${ids[2]}`, 10).toString(36);
-    url += "-";
-    url += parseInt(`${ids[3]}${ids[4]}${ids[5]}`, 10).toString(36);
-
-    return url;
 }
 
 export default SelectedCards;

@@ -7,59 +7,44 @@ import Filters from './components/Filters';
 import React from 'react';
 
 const ordinal = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th"];
-const type_names = ["Speed", "Stamina", "Power", "Guts", "Wisdom", "", "Friend"];
+const type_names = ["Voice", "Dance", "Visual"];
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             weights: {
-                type: 0,
-                bondPerDay: 3.5,
-                trainingDays: 50,
-                races: [10,10,5,3],
-                unbondedTrainingGain: [
-                    [8,0,4,0,0,2,19],
-                    [0,7,0,3,0,2,17],
-                    [0,4,6,0,0,2,18],
-                    [3,0,3,6,0,2,20],
-                    [2,0,0,0,6,3,0]
-                ],
-                bondedTrainingGain: [
-                    [10,0,4,0,0,2,21],
-                    [0,8,0,3,0,2,18],
-                    [0,4,7,0,0,2,19],
-                    [4,0,3,9,0,2,24],
-                    [3,0,0,0,9,3,0]
-                ],
-                summerTrainingGain: [
-                    [11,0,5,0,0,2,22],
-                    [0,9,0,6,0,2,21],
-                    [0,4,10,0,0,2,21],
-                    [3,0,2,10,0,2,24],
-                    [3,0,0,0,9,3,0]
-                ],
-                umaBonus: [1,1,1,1,1,1],
-                stats: [1,1,1.1,1,1,0.5,1.5],
-                multi: 1,
-                bonusFS: 0,
-                bonusSpec: 0,
-                motivation: 0.2,
-                scenarioLink: [],
-                scenarioBonus: 0,
-                fanBonus: 0.05,
-                prioritize: true,
-                onlySummer: false,
+                idolStats: [60, 60, 60],
+                idolMult: [15, 15, 15],
+                memStats: [10, 10, 10],
+                memMult: [5, 5, 5],
+                memPoints: 0,
+                statCap: 1800,
+                vocalLessons: [635, 3, 2, 0],
+                danceLessons: [605, 2, 2, 0],
+                visualLessons: [460, 2, 0, 1],
+                spRate: 5,
+                rest: 3,
+                gift: 2,
+                date: 2,
+                shop: 2,
+                classroom: 3,
+                classroomStats: [110, 100, 80],
+                drink: 3,
+                upgrade: [3, 4],
+                cardAcq: [6, 9, 4],
+                removal: 2,
             },
+
             selectedCards: [
-                cards.find((c) => c.id === 20023 && c.limit_break === 4),
-                cards.find((c) => c.id === 20033 && c.limit_break === 4),
-                cards.find((c) => c.id === 20009 && c.limit_break === 4),
-                cards.find((c) => c.id === 30134 && c.limit_break === 4),
-                cards.find((c) => c.id === 30137 && c.limit_break === 0),
+                cards.find((c) => c.id === 30001 && c.limit_break === 0),
+                cards.find((c) => c.id === 30002 && c.limit_break === 1),
+                cards.find((c) => c.id === 30003 && c.limit_break === 2),
+                cards.find((c) => c.id === 30004 && c.limit_break === 3),
+                cards.find((c) => c.id === 30005 && c.limit_break === 4),
+                cards.find((c) => c.id === 30006 && c.limit_break === 4),
             ],
             availableCards: cards,
-            label: "Ranking for the 4th Speed card in this deck:"
         }
 
         this.onWeightsChanged = this.onWeightsChanged.bind(this);
@@ -111,10 +96,10 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <h1>Uma Musume Support Card Tier List</h1>
-                <span class="section-explanation">
-                    For more game information, check the <a href="https://docs.google.com/document/d/1gNcV7XLmxx0OI2DEAR8gmKb8P9BBhcwGhlJOVbYaXeo/edit?usp=sharing">Uma Musume Reference</a><br/>
-                    This tier list defaults to the Grandmasters Scenario and doesn't consider skills, only stats.<br/>
+                <h1>Gakuen iDOLM@STER Support Card Tier List</h1>
+                <span className="section-explanation">
+                    This website is a fork of this <a href="https://euophrys.github.io/uma-tiers/">Uma Musume Tier List website</a>.<br />
+                    This tier list only considers stats from Support Abilities. It does not consider Signature quality, Card Events, or stats from Produce Items.<br/>
                 </span>
                 <Weights
                     onChange={this.onWeightsChanged}
@@ -134,6 +119,7 @@ class App extends React.Component {
                     selectedCards={this.state.selectedCards}
                     cardSelected={this.onCardSelected}
                 />
+                
             </div>
         );
     }

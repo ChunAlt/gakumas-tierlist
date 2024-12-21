@@ -1,6 +1,7 @@
 import React from 'react';
 import { supportCardProperties } from '../constants';
 
+
 function SupportCard(props) {
     let lit_up = "";
     let dark = "";
@@ -19,17 +20,7 @@ function SupportCard(props) {
         let stat = props.stats[i];
         if (stat == "none") continue;
         let value = props.card[stat];
-        if (stat == "fs_bonus") {
-            console.log("pre: " + value);
-            value *= props.card["unique_fs_bonus"];
-            console.log(value);
-        } else if (stat == "specialty_rate") {
-            value = (value + 100) * props.card["unique_specialty"] * props.card["fs_specialty"] - 100;
-        }
         if (value < 1) {
-            value *= 100;
-        } else if (value < 2 && stat != "race_bonus") {
-            value -= 1;
             value *= 100;
         }
         value = Math.round(value);
@@ -46,7 +37,7 @@ function SupportCard(props) {
                 src={process.env.PUBLIC_URL + "/cardImages/support_card_s_" + props.id + ".png"}
                 title={props.charName}
                 alt={props.charName}
-                onClick={alreadySelected ? ()=>{} : props.onClick}
+                onClick={alreadySelected ? () => { } : props.onClick}
             />
             <span className="limit-breaks">
                 <span className="lb-yes">{lit_up}</span>
@@ -63,7 +54,7 @@ function SupportCard(props) {
             </span>
             <span className="stat-3">
                 {statDisplays[2]}
-            </span>
+                </span>
         </div>
     );
 }

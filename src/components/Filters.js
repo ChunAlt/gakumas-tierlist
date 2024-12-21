@@ -1,25 +1,20 @@
 import React from 'react';
 import cards from '../cards';
 import { lsTest } from '../utils';
+import VoiceIcon from '../icons/utx_ico_obtain_00.png';
+import DanceIcon from '../icons/utx_ico_obtain_01.png';
+import VisualIcon from '../icons/utx_ico_obtain_02.png';
 
 class Filters extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             ssr:[true,false,true,false,true],
-            sr:[true,false,true,false,true],
+            sr:[true,true,false,false,true],
             r: [false,false,false,false,true],
         };
 
         this.onSettingChanged = this.onSettingChanged.bind(this);
-
-        if(lsTest()) {
-            let savedFilters = window.localStorage.getItem("filters");
-            if (savedFilters !== null) {
-                savedFilters = JSON.parse(savedFilters);
-                this.state = savedFilters;
-            }
-        }
 
         let availableCards = cards.filter((c) => {
             if (c.rarity === 1) {
@@ -76,7 +71,7 @@ class Filters extends React.Component {
     render() {
         const rarities = ["ssr","sr","r"];
         let rows = [];
-        rows.push(<tr><th>SSR</th><th>SR</th><th>R</th></tr>);
+        rows.push(<tr key={rarities[0]}><th>SSR</th><th>SR</th><th>R</th></tr>);
         for (let i = 4; i >= 0; i--) {
             let data = [];
             let lit_up = "";
@@ -89,19 +84,21 @@ class Filters extends React.Component {
                 }
             }
             for (let r = 0; r < 3; r++) {
-                data.push(<td>
+                data.push(<td key={rarities[r]+i}>
                     <span className="lb-yes">{lit_up}</span><span className="lb-no">{dark}</span>
                     <input type="checkbox" checked={this.state[rarities[r]][i]} id={rarities[r] + "." + i} onChange={this.onSettingChanged}/>
                 </td>);
             }
-            rows.push(<tr>{data}</tr>);
+            rows.push(<tr key = {rows+i} >{data}</tr>);
         }
         
         return (
             <div className="filters">
-                <div className="general-filters">
+                <div  className="general-filters">
                     <table>
-                        {rows}
+                        <tbody >
+                            {rows}
+                        </tbody>
                     </table>
                 </div>
             </div>

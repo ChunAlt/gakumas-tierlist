@@ -22,8 +22,8 @@ code {
 
 .support-card {
     position:relative;
-    width: 100px;
-    height: 100px;
+    width: 160px;
+    height: 90px;
     display:inline-block;
     text-align: center;
 }
@@ -35,8 +35,8 @@ code {
 
 .limit-breaks {
     position:absolute;
-    bottom:5px;
-    left:0px;
+    bottom:0px;
+    left:30px;
     width:100px;
     font-size: 1em;
     text-shadow: -1px -1px 0 #f5f0eb, 1px -1px 0 #f5f0eb, -1px 1px 0 #f5f0eb, 1px 1px 0 #f5f0eb;
@@ -69,9 +69,23 @@ code {
 
 .type-icon {
     position:absolute;
-    top:5px;
-    right:5px;
+    top:4px;
+    left:5px;
     width:30px;
+}
+
+.signature-icon {
+    position: absolute;
+    bottom: -65px;
+    left: 45px;
+    width: 60px;
+}
+
+.plan-icon {
+    position: absolute;
+    top: 4px;
+    left: 5px;
+    width: 30px;
 }
 
 .score {
@@ -105,8 +119,9 @@ code {
 }
 
 .tier-images {
-    flex:1;
+    flex: 1;
     text-align: left;
+    
 }
 
 .tier:nth-child(odd) {
@@ -126,6 +141,19 @@ code {
     width: 100%;
     padding-bottom:10px;
 }
+
+
+
+.radio-label {
+    display: inline-flex; /* Keep radio button and label inline */
+    align-items: center; /* Vertically center the radio button and text */
+}
+
+    .radio-label input[type="radio"] {
+        display: flex;
+        align-items: center;
+        margin-right: 0; /* Remove any space to the right of the radio button */
+    }
 
 .filters {
     text-align:center;
@@ -156,6 +184,11 @@ th {
     font-style: italic;
 }
 
+.section-subheader {
+    width: 100%;
+    text-decoration: underline;
+}
+
 input {
     width: 80px;
     text-align: center;
@@ -175,9 +208,11 @@ label {
 }
 
 .image-btn {
-    width: 50px;
-    height: 50px;
-    padding-top: 15px;
+    width: 60px;
+    height: 60px;
+    padding-top: 10px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 .selected {

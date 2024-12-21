@@ -1,30 +1,100 @@
 export const supportCardProperties = {
-    race_bonus: {
-        friendly_name: "Race Bonus",
-        shorthand: "RB"
+    sp_r: {
+        friendly_name: "SP Rate UP",
+        shorthand: "%SP"
     },
-    tb: {
-        friendly_name: "Training Bonus",
-        shorthand: "TB"
-    },
-    fs_bonus: {
-        friendly_name: "Friendship Bonus",
-        shorthand: "FB"
-    },
-    mb: {
-        friendly_name: "Motivation Bonus",
-        shorthand: "MB"
-    },
-    sb: {
-        friendly_name: "Starting Bond",
+
+    start_b: {
+        friendly_name: "Starting Bonus",
         shorthand: "SB"
     },
-    specialty_rate: {
-        friendly_name: "Specialty Rate",
-        shorthand: "SR"
+
+    spp: {
+        friendly_name: "Starting P Points",
+        shorthand: "SPP"
     },
-    hint_rate: {
-        friendly_name: "Hint Rate",
-        shorthand: "HR"
+
+    pb: {
+        friendly_name: "% Bonus",
+        shorthand: "%B"
+    },
+
+    lb: {
+        friendly_name: "Lesson Bonus",
+        shorthand: "LB"
+    },
+
+    sp_lb: {
+        friendly_name: "SP Lesson Bonus",
+        shorthand: "SP LB"
+    },
+
+    n_lb: {
+        friendly_name: "Normal Lesson Bonus",
+        shorthand: "N LB"
+    },
+
+    rest_b: {
+        friendly_name: "Rest Bonus",
+        shorthand: "Rest B"
+    },
+
+    gb: {
+        friendly_name: "Gift Bonus",
+        shorthand: "Gift B"
+    },
+
+    db: {
+        friendly_name: "Date Bonus",
+        shorthand: "Date B"
+    },
+    sb: {
+        friendly_name: "Shop Bonus",
+        shorthand: "Shop B"
+    },
+
+    cb: {
+        friendly_name: "Classroom Bonus",
+        shorthand: "Class B"
+    },
+
+    ub: {
+        friendly_name: "Upgrade Bonus",
+        shorthand: "UB"
+    },
+
+    m_ub: {
+        friendly_name: "Mental Upgrade Bonus",
+        shorthand: "M UB"
+    },
+
+    a_cb: {
+        friendly_name: "Active Card Bonus",
+        shorthand: "A CB"
+    },
+
+    m_cb: {
+        friendly_name: "Mental Card Bonus",
+        shorthand: "M CB"
+    },
+
+    con_cb: {
+        friendly_name: "Condition Card Bonus",
+        shorthand: "Con CB"
+    },
+
+    remove_b: {
+        friendly_name: "Remove Bonus",
+        shorthand: "Rem B"
+    },
+
+    pdb: {
+        friendly_name: "P Drink Bonus",
+        shorthand: "PDB"
+    },
+
+    mb: {
+        friendly_name: "Midterm Bonus",
+        shorthand: "MB"
     },
 }
