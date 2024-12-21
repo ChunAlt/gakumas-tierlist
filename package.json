@@ -1,8 +1,8 @@
 {
-  "name": "umamusume-tierlist",
+  "name": "gakumas-tierlist",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://chunalt.github.io/test",
+  "homepage": "https://chunalt.github.io/gakumas-tierlist",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
