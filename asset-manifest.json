@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/gakumas-tierlist/static/css/main.414de03b.css",
-    "main.js": "/gakumas-tierlist/static/js/main.0a61aa08.js",
+    "main.js": "/gakumas-tierlist/static/js/main.13739578.js",
     "static/js/787.7e1ba083.chunk.js": "/gakumas-tierlist/static/js/787.7e1ba083.chunk.js",
     "static/media/utx_ico_obtain_03.png": "/gakumas-tierlist/static/media/utx_ico_obtain_03.6aa748c7209c35e5d876.png",
     "static/media/utx_ico_obtain_11.png": "/gakumas-tierlist/static/media/utx_ico_obtain_11.b177eae043bc13724a76.png",
@@ -9,11 +9,11 @@
     "static/media/utx_ico_obtain_13.png": "/gakumas-tierlist/static/media/utx_ico_obtain_13.0864864f3a510166a9cc.png",
     "index.html": "/gakumas-tierlist/index.html",
     "main.414de03b.css.map": "/gakumas-tierlist/static/css/main.414de03b.css.map",
-    "main.0a61aa08.js.map": "/gakumas-tierlist/static/js/main.0a61aa08.js.map",
+    "main.13739578.js.map": "/gakumas-tierlist/static/js/main.13739578.js.map",
     "787.7e1ba083.chunk.js.map": "/gakumas-tierlist/static/js/787.7e1ba083.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.414de03b.css",
-    "static/js/main.0a61aa08.js"
+    "static/js/main.13739578.js"
   ]
 }
