@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/gakumas-tierlist/static/css/main.7e2488e2.css",
-    "main.js": "/gakumas-tierlist/static/js/main.1446f4f0.js",
+    "main.js": "/gakumas-tierlist/static/js/main.e74a2ae0.js",
     "static/js/787.7e1ba083.chunk.js": "/gakumas-tierlist/static/js/787.7e1ba083.chunk.js",
     "static/media/utx_ico_obtain_03.png": "/gakumas-tierlist/static/media/utx_ico_obtain_03.6aa748c7209c35e5d876.png",
     "static/media/utx_ico_obtain_11.png": "/gakumas-tierlist/static/media/utx_ico_obtain_11.b177eae043bc13724a76.png",
@@ -9,11 +9,11 @@
     "static/media/utx_ico_obtain_13.png": "/gakumas-tierlist/static/media/utx_ico_obtain_13.0864864f3a510166a9cc.png",
     "index.html": "/gakumas-tierlist/index.html",
     "main.7e2488e2.css.map": "/gakumas-tierlist/static/css/main.7e2488e2.css.map",
-    "main.1446f4f0.js.map": "/gakumas-tierlist/static/js/main.1446f4f0.js.map",
+    "main.e74a2ae0.js.map": "/gakumas-tierlist/static/js/main.e74a2ae0.js.map",
     "787.7e1ba083.chunk.js.map": "/gakumas-tierlist/static/js/787.7e1ba083.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7e2488e2.css",
-    "static/js/main.1446f4f0.js"
+    "static/js/main.e74a2ae0.js"
   ]
 }
